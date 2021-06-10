@@ -14,8 +14,8 @@ public class Sogn {
     private Integer sognekode;
     private String navn;
 
-    @OneToOne
-    @JoinColumn(name = "kommune",referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "kommune_id",referencedColumnName = "kommune_id")
     private Kommune kommune;
 
     private int smitteTryk;
