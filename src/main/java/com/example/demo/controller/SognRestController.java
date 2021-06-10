@@ -49,7 +49,6 @@ public class SognRestController {
 
             return new ResponseEntity<>(sognTemp, HttpStatus.OK);
         } else{
-            System.out.println("fejl");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
