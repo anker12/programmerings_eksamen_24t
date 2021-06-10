@@ -27,28 +27,32 @@ public class SognRestController {
         return sognRepository.findAll();
     }
 
-    @PutMapping(value = "/update/{name}/{kommune}")
-    public ResponseEntity<Sogn> update(@PathVariable String name, @PathVariable Integer kommune){
+    @PutMapping(value = "/update/{kommunekode}/{sognNavn}", consumes = "application/json")
+    public ResponseEntity<Sogn> updateSogn(@PathVariable String sognNavn,@PathVariable Integer kommunekode ,@RequestBody Sogn sogn){
         Sogn sognTemp;
-        if(sognRepository.existsByNavn(name)){
-            sognTemp = sognRepository.getSognByNavn(name);
+        //burde nok bruge ID
+        if(sognRepository.existsByNavn(sognNavn)){
+            sognTemp = sognRepository.getSognByNavn(sognNavn);
         }else{
             sognTemp = new Sogn();
         }
-        sognTemp.setNavn(name);
-        Kommune kommuneTemp = kommuneRepository.getById(kommune);
+        sognTemp.setNavn(sognNavn);
+        sognTemp.setNedluk(sogn.getNedluk());
+        sognTemp.setSmitteTryk(sogn.getSmitteTryk());
+        sognTemp.setSognekode(sogn.getSognekode());
+
+        Kommune kommuneTemp = kommuneRepository.getByKommuneKode(kommunekode);
+
         sognTemp.setKommune(kommuneTemp);
         sognRepository.save(sognTemp);
-
 
         return new ResponseEntity<>(sognTemp, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/newSogn", consumes = "application/json")
-    public ResponseEntity<Sogn> newSogn(@RequestBody Sogn sogn){
-        System.out.println("test");
-        sognRepository.save(sogn);
-        return new ResponseEntity<>(sogn, HttpStatus.CREATED);
+    @DeleteMapping(value = "/delete/{sognID}")
+    public ResponseEntity<Sogn> deleteSogn(@PathVariable Integer sognID){
+        sognRepository.deleteById(sognID);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

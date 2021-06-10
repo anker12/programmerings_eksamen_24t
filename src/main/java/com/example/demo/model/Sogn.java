@@ -9,13 +9,14 @@ public class Sogn {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     private Integer sognekode;
     private String navn;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "kommune_id",referencedColumnName = "kommune_id")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "kommune_id",referencedColumnName = "id")
     private Kommune kommune;
 
     private int smitteTryk;

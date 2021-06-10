@@ -8,10 +8,10 @@ import java.util.Set;
 public class Kommune {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "kommune_id")
+    @Column(name = "id")
     private Integer id;
 
-    private int kommuneKode;
+    private Integer kommuneKode;
 
     private String name;
 
