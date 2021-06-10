@@ -1,8 +1,9 @@
 let body = {
     "sognekode":"",
-    "smitteTryk":""
+    "smitteTryk":"",
+    "nedluk":""
 }
-let postRequest2 = {
+let putRequest2 = {
     method: "PUT",
     body: body,
     headers: {
@@ -15,7 +16,8 @@ async function createSogn(){
     let kommunekode = document.getElementById("sogn-kommune-kode").value;
     body.sognekode = document.getElementById("sognkode").value;
     body.smitteTryk = document.getElementById("song-smittetryk").value;
-    if(sognnavn!==null && sognnavn!==""){
+    body.nedluk = document.getElementById("sogn-nedluk").value;
+    if(sognnavn!==null && sognnavn!=="" && kommunekode!==null && kommunekode!=="" && body.sognekode!==null && body.sognekode!==""){
       await fetchPostSogn(sognnavn,kommunekode);
 
     }else{
@@ -25,10 +27,18 @@ async function createSogn(){
 }
 
 async function fetchPostSogn(sognnavn,kommunekode){
-    postRequest2.body = JSON.stringify(body);
-    await fetch("/update/"+kommunekode+"/"+sognnavn,postRequest2)
-        .then(response => console.log(response.json()))
+    putRequest2.body = JSON.stringify(body);
+    await fetch("/update/"+kommunekode+"/"+sognnavn,putRequest2)
+        .then(response => checkResponse(response))
         .catch((error) => console.log(error))
-    alert(sognnavn+" er blevet oprettet!");
-    location.reload();
+
+}
+
+function checkResponse(response){
+    if(response.ok){
+        alert("Sognet blev oprettet!");
+        location.reload();
+    }else{
+        alert("Noget gik galt, tjek felterne igen og vær sikker på at kommunerne er blevet fetched!");
+    }
 }

@@ -2,9 +2,10 @@ let body = {
     "id":"",
     "navn":"",
     "sognekode":"",
-    "smitteTryk":""
+    "smitteTryk":"",
+    "nedluk":""
 }
-let postRequest3 = {
+let putRequest3 = {
     method: "PUT",
     body: body,
     headers: {
@@ -16,6 +17,9 @@ let getRequest = {
     headers: {
         "content-type": "application/json"
     }
+}
+let delRequest = {
+    method: "DELETE",
 }
 
 function fetchSogne(){
@@ -29,6 +33,16 @@ function listSogneHandler(data){
 }
 
 function listSogne(sogn){
+    let br = document.createElement("br");
+    let br2 = document.createElement("br");
+    let br3 = document.createElement("br");
+    let br4 = document.createElement("br");
+    let br5 = document.createElement("br");
+    let br6 = document.createElement("br");
+    let br7 = document.createElement("br");
+    let br8 = document.createElement("br");
+    let br9 = document.createElement("br");
+
     let sogneList = document.getElementById("sogne-list");
     let sognDiv = document.createElement("div");
     sognDiv.id=""+sogn.id;
@@ -36,16 +50,19 @@ function listSogne(sogn){
     let name = document.createElement("span");
     name.innerText=sogn.navn;
     name.className="sogne-navn";
-    let br = document.createElement("br");
     let sognekode = document.createElement("span");
     sognekode.innerText="Sognekode: "+sogn.sognekode;
-    let br2 = document.createElement("br");
     let smitteTryk = document.createElement("span");
     smitteTryk.innerText = "Smittetryk: "+sogn.smitteTryk;
-    let br3 = document.createElement("br");
     let sognKommune = document.createElement("span");
     sognKommune.innerText = "Tilhører: "+sogn.kommune.name;
-    let br4 = document.createElement("br");
+    let sognNedluk = document.createElement("span");
+    if(sogn.nedluk!==null){
+        sognNedluk.innerText = "Nedlukning: "+sogn.nedluk.split("T")[0];
+    } else{
+        sognNedluk.innerText = "Nedlukning: Ingen dato sat";
+    }
+
     let sognEditBtn = document.createElement("button");
     sognEditBtn.innerText="Rediger";
     sognEditBtn.id="sogn-edit-btn";
@@ -54,10 +71,6 @@ function listSogne(sogn){
     //rediger knap
     sognEditBtn.addEventListener("click",function(){
         sognDiv.innerHTML="";
-
-        let br5 = document.createElement("br");
-        let br6 = document.createElement("br");
-        let br7 = document.createElement("br");
 
         let nameEdit = document.createElement("span");
         nameEdit.innerText = sogn.navn;
@@ -88,6 +101,20 @@ function listSogne(sogn){
         sognKommuneEditLabel.for="sogn-kommune-kode";
         sognKommuneEditLabel.innerText= "Associeret kommunekode: ";
 
+        let sognNedlukEdit = document.createElement("input");
+        sognNedlukEdit.type="date";
+        if(sogn.nedluk!==null){
+            sognNedlukEdit.value = sogn.nedluk.split("T")[0];
+        } else{
+            sognNedlukEdit.value = null;
+        }
+
+
+        sognNedlukEdit.id="sogn-nedluk";
+        let sognNedlukEditLabel = document.createElement("label");
+        sognNedlukEditLabel.for="sogn-nedluk";
+        sognNedlukEditLabel.innerText="Sognets nedlukningsdato: ";
+
         let saveBtn = document.createElement("button");
         saveBtn.innerText="Gem";
         saveBtn.className="btn";
@@ -113,11 +140,22 @@ function listSogne(sogn){
         sognDiv.appendChild(sognKommuneEditLabel);
         sognDiv.appendChild(br7);
         sognDiv.appendChild(sognKommuneEdit);
+        sognDiv.appendChild(br8);
+        sognDiv.appendChild(sognNedlukEditLabel);
         sognDiv.appendChild(br4);
+        sognDiv.appendChild(sognNedlukEdit);
+        sognDiv.appendChild(br9);
         sognDiv.appendChild(saveBtn);
 
 
     });
+    let deleteBtn = document.createElement("button");
+    deleteBtn.className="btn";
+    deleteBtn.id="sogn-delete-btn";
+    deleteBtn.innerText="Slet";
+    deleteBtn.addEventListener("click",async function (){
+        await deleteSogn(sogn.id,sogn.navn);
+    })
 
 
 
@@ -129,7 +167,10 @@ function listSogne(sogn){
     sognDiv.appendChild(br3);
     sognDiv.appendChild(sognKommune);
     sognDiv.appendChild(br4);
+    sognDiv.appendChild(sognNedluk);
+    sognDiv.appendChild(br8);
     sognDiv.appendChild(sognEditBtn);
+    sognDiv.appendChild(deleteBtn);
 
 
     sogneList.appendChild(sognDiv);
@@ -144,6 +185,7 @@ async function createSogn(){
     body.sognekode = document.getElementById("sognkode").value;
     body.smitteTryk = document.getElementById("song-smittetryk").value;
     body.navn = sognnavn;
+    body.nedluk = document.getElementById("sogn-nedluk").value;
 
     if(sognnavn!==null && sognnavn!==""){
         await fetchPostSogn(sognnavn,kommunekode);
@@ -155,10 +197,24 @@ async function createSogn(){
 
 async function fetchPostSogn(sognnavn,kommunekode){
     console.log(sognnavn + kommunekode);
-    postRequest3.body = JSON.stringify(body);
-    await fetch("/update/"+kommunekode+"/"+sognnavn,postRequest3)
+    putRequest3.body = JSON.stringify(body);
+    await fetch("/update/"+kommunekode+"/"+sognnavn,putRequest3)
         .then(response => console.log(response.json()))
         .catch((error) => console.log(error))
+}
+
+async function deleteSogn(sognId,sognNavn){
+    if(confirm("Vil du slette "+sognNavn + "?")){
+        await fetchDeleteSogn(sognId);
+    }
+
+}
+
+async function fetchDeleteSogn(sognId){
+    await fetch("delete/"+sognId,delRequest)
+        .then(response => console.log(response))
+        .catch((error) => console.log(error))
+    location.reload();
 }
 
 

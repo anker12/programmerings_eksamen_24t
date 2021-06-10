@@ -9,12 +9,15 @@
     border-radius: 30px;
     border: 1px solid black;
     margin-bottom: 5px;
+    width: 187px;
+
 }
 
 .sogne-navn{
     font-weight: bold;
     font-size: 18px;
 }
-#sogn-edit-btn,#sogn-save-btn{
+#sogn-edit-btn,#sogn-save-btn,#sogn-delete-btn{
     border: 1px solid black;
+    margin-right: 5px;
 }
