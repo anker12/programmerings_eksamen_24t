@@ -4,8 +4,17 @@
 .sogne-div{
     margin-bottom: 10px;
 }
+.sogne-div input{
+    text-align: center;
+    border-radius: 30px;
+    border: 1px solid black;
+    margin-bottom: 5px;
+}
 
 .sogne-navn{
     font-weight: bold;
     font-size: 18px;
+}
+#sogn-edit-btn,#sogn-save-btn{
+    border: 1px solid black;
 }

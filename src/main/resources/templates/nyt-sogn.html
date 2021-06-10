@@ -16,10 +16,10 @@
     <!-- Links -->
     <ul class="navbar-nav nav" style="float:left;">
         <li class="nav-item">
-            <a class="nav-link" href="/nytSogn">Nyt sogn</a>
+            <a class="nav-link" href="/sogne">Sogne</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/sogne">Sogne</a>
+            <a class="nav-link" href="/nytSogn">Nyt sogn</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/fetch">Fetch kommuner</a>
@@ -37,15 +37,15 @@
     <br>
     <input type="text" id="sognkode">
     <br>
-    <label for="sogn-kommune-kode">Associeret kommunekode: </label>
-    <br>
-    <input type="text" id="sogn-kommune-kode">
-    <br>
     <label for="song-smittetryk">Sognets smittetryk: </label>
     <br>
     <input type="text" id="song-smittetryk">
     <br>
-    <button class="btn" id="add-btn">Tilføj</button>
+    <label for="sogn-kommune-kode">Associeret kommunekode: </label>
+    <br>
+    <input type="text" id="sogn-kommune-kode">
+    <br>
+    <button class="btn" id="add-btn" onclick="createSogn()">Tilføj</button>
 
 </div>
 

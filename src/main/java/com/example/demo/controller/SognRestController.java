@@ -31,22 +31,28 @@ public class SognRestController {
     public ResponseEntity<Sogn> updateSogn(@PathVariable String sognNavn,@PathVariable Integer kommunekode ,@RequestBody Sogn sogn){
         Sogn sognTemp;
         //burde nok bruge ID
-        if(sognRepository.existsByNavn(sognNavn)){
-            sognTemp = sognRepository.getSognByNavn(sognNavn);
-        }else{
-            sognTemp = new Sogn();
+        if(kommuneRepository.existsByKommuneKode(kommunekode)){
+            if(sognRepository.existsByNavn(sognNavn)){
+                sognTemp = sognRepository.getSognByNavn(sognNavn);
+            }else{
+                sognTemp = new Sogn();
+            }
+            sognTemp.setNavn(sognNavn);
+            sognTemp.setNedluk(sogn.getNedluk());
+            sognTemp.setSmitteTryk(sogn.getSmitteTryk());
+            sognTemp.setSognekode(sogn.getSognekode());
+
+            Kommune kommuneTemp = kommuneRepository.getByKommuneKode(kommunekode);
+
+            sognTemp.setKommune(kommuneTemp);
+            sognRepository.save(sognTemp);
+
+            return new ResponseEntity<>(sognTemp, HttpStatus.OK);
+        } else{
+            System.out.println("fejl");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        sognTemp.setNavn(sognNavn);
-        sognTemp.setNedluk(sogn.getNedluk());
-        sognTemp.setSmitteTryk(sogn.getSmitteTryk());
-        sognTemp.setSognekode(sogn.getSognekode());
 
-        Kommune kommuneTemp = kommuneRepository.getByKommuneKode(kommunekode);
-
-        sognTemp.setKommune(kommuneTemp);
-        sognRepository.save(sognTemp);
-
-        return new ResponseEntity<>(sognTemp, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete/{sognID}")
