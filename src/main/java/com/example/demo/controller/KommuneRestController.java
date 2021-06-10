@@ -26,7 +26,8 @@ public class KommuneRestController {
             kommuneRepository.save(kommune);
 
         }else{
-            System.out.println("already exists");
+            //System.out.println("already exists");
+            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -29,7 +29,6 @@ async function kommuneListHandler(data){
     data.forEach(kommune => postKommune(kommune));
 }
 async function postKommune(kommune){
-    console.log(kommune);
     body.name = kommune.navn;
     body.kommuneKode = kommune.kode;
     postRequest.body = JSON.stringify(body);
