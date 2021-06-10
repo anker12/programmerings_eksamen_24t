@@ -62,6 +62,19 @@ function listSogne(sogn){
     } else{
         sognNedluk.innerText = "Nedlukning: Ingen dato sat";
     }
+    let nedlukket = document.createElement("input");
+    nedlukket.type="checkbox";
+    nedlukket.checked=checkIfNedluking(sogn.nedluk);
+    //nedlukket.disabled=true;
+    nedlukket.addEventListener("click",function (){
+        nedlukket.checked=checkIfNedluking(sogn.nedluk);
+    })
+    nedlukket.style.width="10px";
+    nedlukket.style.margin="auto 0 auto 5px";
+    nedlukket.style.top="2px";
+    nedlukket.style.position="relative";
+    let nedlukketLabel = document.createElement("label");
+    nedlukketLabel.innerText="Under nedlukning: ";
 
     let sognEditBtn = document.createElement("button");
     sognEditBtn.innerText="Rediger";
@@ -169,6 +182,9 @@ function listSogne(sogn){
     sognDiv.appendChild(br4);
     sognDiv.appendChild(sognNedluk);
     sognDiv.appendChild(br8);
+    sognDiv.appendChild(nedlukketLabel);
+    sognDiv.appendChild(nedlukket);
+    sognDiv.appendChild(br7);
     sognDiv.appendChild(sognEditBtn);
     sognDiv.appendChild(deleteBtn);
 
@@ -215,6 +231,18 @@ async function fetchDeleteSogn(sognId){
         .then(response => console.log(response))
         .catch((error) => console.log(error))
     location.reload();
+}
+
+function checkIfNedluking(nedluk){
+    if(nedluk!==null){
+        let isClosed;
+        let currentDate = new Date();
+        let nedlukdate = new Date(nedluk.split("T")[0]);
+        isClosed = nedlukdate < currentDate;
+        return isClosed;
+    }else{
+        return false;
+    }
 }
 
 
