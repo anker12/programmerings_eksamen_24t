@@ -11,6 +11,12 @@ public class TemplateController {
         return "index";
     }
 
+    @GetMapping("/sogne")
+    public String sogne(){return "sogne";}
+
+    @GetMapping("/nytSogn")
+    public String nytSogn(){return"nyt-sogn";}
+
     @GetMapping("/fetch")
     public String fetch(){return "fetch";}
 }

@@ -1,0 +1,14 @@
+
+#create-sogn-div{
+    text-align: center;
+}
+#create-sogn-div input{
+    text-align: center;
+    border-radius: 30px;
+    border: 1px solid black;
+}
+#add-btn{
+    width: 100px;
+    margin-top:10px;
+    border:1px solid black;
+}

@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Forside</title>
+    <title>Nyt sogn</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/indexStyle.css">
-    <script src="/js/indexScript.js"></script>
-
+    <link rel="stylesheet" href="/css/nyt-sognStyle.css">
+    <script src="/js/newSogn.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -29,15 +28,27 @@
 
 </nav>
 
-<div id="kommune-list-sorter">
-    <label for="sorter">Søg efter kommunekode: </label>
+<div id="create-sogn-div">
+    <label for="sogn-name">Sognets navn: </label>
     <br>
-    <input type="text" id="sorter" placeholder="kommunekode">
+    <input type="text" id="sogn-name">
     <br>
-    <button class="btn" id="search-btn" onclick="searchByKommunekode()">Søg</button>
-</div>
-<div id="kommune-list">
+    <label for="sognkode">Sognets kode: </label>
+    <br>
+    <input type="text" id="sognkode">
+    <br>
+    <label for="sogn-kommune-kode">Associeret kommunekode: </label>
+    <br>
+    <input type="text" id="sogn-kommune-kode">
+    <br>
+    <label for="song-smittetryk">Sognets smittetryk: </label>
+    <br>
+    <input type="text" id="song-smittetryk">
+    <br>
+    <button class="btn" id="add-btn">Tilføj</button>
 
 </div>
+
+
 </body>
 </html>
