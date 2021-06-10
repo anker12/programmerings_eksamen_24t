@@ -14,9 +14,9 @@ public class HardcodeKommune implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Kommune kbh = new Kommune(101,"København");
-        Kommune fred = new Kommune(147,"Frederiksberg");
-        kommuneRepository.save(kbh);
-        kommuneRepository.save(fred);
+        //Kommune kbh = new Kommune(101,"København");
+        //Kommune fred = new Kommune(147,"Frederiksberg");
+        //kommuneRepository.save(kbh);
+        //kommuneRepository.save(fred);
     }
 }

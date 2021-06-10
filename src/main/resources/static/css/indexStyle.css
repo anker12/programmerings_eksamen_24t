@@ -1,0 +1,27 @@
+#kommune-list{
+    margin-left:20px;
+}
+.kommune-div{
+    margin-bottom: 10px;
+}
+.kommune-navn, #kommune-list-sorter label{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#kommune-list-sorter{
+    text-align: center;
+    height: 120px;
+    margin: 10px 0 10px 0;
+}
+#sorter{
+    margin-top: 1px;
+    height: 32px;
+    border: 1px solid black;
+    border-radius: 30px;
+    text-align: center;
+}
+#search-btn{
+    margin-top:8px;
+    width: 100px;
+}

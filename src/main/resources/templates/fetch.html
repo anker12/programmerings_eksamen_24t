@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Forside</title>
+    <title>test fetch</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/indexStyle.css">
-    <script src="/js/indexScript.js"></script>
-
+    <script src="/js/fetchKommuner.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -26,15 +24,8 @@
 
 </nav>
 
-<div id="kommune-list-sorter">
-    <label for="sorter">Søg efter kommunekode: </label>
-    <br>
-    <input type="text" id="sorter" placeholder="kommunekode">
-    <br>
-    <button class="btn" id="search-btn" onclick="searchByKommunekode()">Søg</button>
-</div>
-<div id="kommune-list">
+<span id="progess">Henter alle kommuner fra dataforsyningen</span>
 
-</div>
+
 </body>
 </html>

@@ -10,4 +10,7 @@ public class TemplateController {
     public String index(){
         return "index";
     }
+
+    @GetMapping("/fetch")
+    public String fetch(){return "fetch";}
 }
